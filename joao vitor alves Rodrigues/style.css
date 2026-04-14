@@ -1,0 +1,39 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4ece1;
+    color: #4b3621;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+#lista-metodos {
+    background-color: #ffffff;
+    border-left: 5px solid #6f4e37;
+    padding: 20px;
+    list-style-type: square;
+}
+
+.nav-link {
+    text-decoration: none;
+    font-weight: bold;
+    color: #6f4e37;
+}
+
+.nav-link:hover {
+    color: #a67b5b;
+    text-decoration: underline;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    border: 1px solid #d2b48c;
+    padding: 10px;
+    text-align: left;
+}
+tr:nth-child(even) {
+    background-color: #efe0cc;
+}
