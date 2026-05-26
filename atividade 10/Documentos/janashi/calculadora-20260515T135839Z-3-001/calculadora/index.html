@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Calculadora</title>
+</head>
+
+<body>
+    <main>
+        <div class="calculadora">
+            <div class="resultado">
+                <p id="res"></p>
+            </div>
+            <div class="calc">
+                <button id="deletar" class="calcu" onclick="dele()">del</button>
+                <button id="calcular" class="calcu" onclick="calc()">=</button>
+            </div>
+            <div class="oper">
+                <button id="soma" class="operation" onclick="somar()">+</button>
+                <button id="subt" class="operation" onclick="subtr()">-</button>
+                <button id="mult" class="operation" onclick="multi()">*</button>
+                <button id="divi" class="operation" onclick="divid()">/</button>
+                <button id="porct" class="operation" onclick="porce()">%</button>
+            </div>
+            <div class="numeros">
+                <button id="um" class="num" onclick="addNum(this)">1</button>
+                <button id="dois" class="num" onclick="addNum(this)">2</button>
+                <button id="tres" class="num" onclick="addNum(this)">3</button>
+                <button id="quatro" class="num" onclick="addNum(this)">4</button>
+                <button id="cinco" class="num" onclick="addNum(this)">5</button>
+                <button id="seis" class="num" onclick="addNum(this)">6</button>
+                <button id="sete" class="num" onclick="addNum(this)">7</button>
+                <button id="oito" class="num" onclick="addNum(this)">8</button>
+                <button id="nove" class="num" onclick="addNum(this)">9</button>
+                <button id="dez" class="num" onclick="addNum(this)">0</button>
+            </div>
+        </div>
+    </main>
+    <script>
+        let numBuffer = '';
+        let resBox = document.getElementById('res');
+        let op = null;
+        let status = '';
+        let num1 = 0;
+        let num2 = 0;
+
+        function addNum(element) {
+            if (status == 'err') {
+                resBox.innerText = '';
+                status = 'ok';
+                num1 = 0;
+                num2 = 0;
+                numBuffer = '';
+            }
+            numBuffer += element.innerText;
+            resBox.innerText += element.innerText;
+        }
+        function somar() {
+            if (status == 'active') {
+                numBuffer = '';
+                op = null;
+                status = 'err';
+                resBox.innerText = "erro, apenas uma operação possível por vez";
+            } else {
+                op = 1;
+                status = 'active';
+                num1 = parseInt(numBuffer);
+                resBox.innerText += "+";
+                numBuffer = '';
+            }
+        }
+        function subtr(){
+            if (status == 'active') {
+                numBuffer = '';
+                op = null;
+                status = 'err';
+                resBox.innerText = "erro, apenas uma operação possível por vez";
+            } else{
+                op = 2;
+                status = 'active';
+                num1 = parseInt(numBuffer);
+                resBox.innerText += "-";
+                numBuffer = '';
+            }
+        }
+        function multi(){
+            if (status == 'active') {
+                numBuffer = '';
+                op = null;
+                status = 'err';
+                resBox.innerText = "erro, apenas uma operação possível por vez";
+            } else{
+                op = 3;
+                status = 'active';
+                num1 = parseInt(numBuffer);
+                resBox.innerText += "*";
+                numBuffer = '';
+            }
+        }
+        function divid(){
+            if (status == 'active') {
+                numBuffer = '';
+                op = null;
+                status = 'err';
+                resBox.innerText = "erro, apenas uma operação possível por vez";
+            } else{
+                op = 4;
+                status = 'active';
+                num1 = parseInt(numBuffer);
+                resBox.innerText += "/";
+                numBuffer = '';
+            }
+        }
+        function porce(){
+            if (status == 'active') {
+                numBuffer = '';
+                op = null;
+                status = 'err';
+                resBox.innerText = "erro, apenas uma operação possível por vez";
+            } else{
+                op = 5;
+                status = 'active';
+                num1 = parseInt(numBuffer);
+                resBox.innerText += "%";
+                numBuffer = '';
+            }
+        }
+        function dele(){
+            if(status= 'err'){
+                resBox.innerText = '';
+                status = 'ok';
+                num1 = 0;
+                num2 = 0;
+                numBuffer = '';
+            }
+            numBuffer = numBuffer.slice(0 , -1);
+            resBox.innerText = resBox.innerText.slice(0, -1);
+        }
+
+        function calc() {
+            if (status != 'active') {
+                numBuffer = '';
+                op = null;
+                status = 'err';
+                resBox.innerText = "erro, apenas um valor digitado";
+            } else {
+                num2 = parseInt(numBuffer);
+                let res;
+
+                if (op == 1)
+                    res = num1 + num2;
+
+                if (op == 2)
+                    res = num1 - num2;
+
+                if(op == 3)
+                    res = num1 * num2;
+
+                if(op == 4)
+                    res = num1 / num2;
+
+                if(op == 5)
+                    res = num1 *(num2/100);
+
+                resBox.innerText = res;
+                status = 'err';
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
