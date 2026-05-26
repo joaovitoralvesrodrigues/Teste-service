@@ -1,46 +1,331 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR"
 <head>
-    <meta charset="UTF-8">
-    <title>Cafés do Mundo - Início</title>
-    <link rel="stylesheet" href="style.css">
+   <meta charset="UFT-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Galeria Cores do Amanha - Exposiçao Virtual</title>
+   <style>
+       /* --- CONFIGURAÇÕES GERAIS (Posicionamento Static por padrão) --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f7f5f0;
+            color: #333;
+            line-height: 1.6;
+            padding-top: 70px; /* Margem para o conteúdo não sumir sob o header fixo */
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1, h2, h3 {
+            color: #1a1a1a;
+            margin-bottom: 15px;
+        }
+
+        /* --- 1. POSICIONAMENTO FIXED --- 
+           Objetivo: Fixar o menu no topo para navegação contínua durante a rolagem. */
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 70px;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 50px;
+            z-index: 1000; /* Garante que ficará por cima de tudo */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .fixed-header .logo {
+            font-weight: bold;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            color: #d4af37; /* Dourado */
+        }
+
+        .fixed-header nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.95rem;
+        }
+
+        /* --- 2. POSICIONAMENTO STATIC --- 
+           Objetivo: Fluxo normal do texto. Usado na apresentação do objetivo do site. */
+        .site-objective {
+            position: static; 
+            background-color: #ffffff;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            border-left: 5px solid #d4af37;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        /* --- 3. POSICIONAMENTO STICKY --- 
+           Objetivo: O banner de aviso "gruda" logo abaixo do header quando rolamos a página. */
+        .sticky-announcement {
+            position: -webkit-sticky; /* Suporte para Safari */
+            position: sticky;
+            top: 70px; /* Fixa exatamente abaixo dos 70px do header */
+            background-color: #d4af37;
+            color: #1a1a1a;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            z-index: 900;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* --- LAYOUT DA GALERIA --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        /* --- 4. POSICIONAMENTO RELATIVE --- 
+           Objetivo: Serve como ponto de referência (âncora) para a etiqueta absoluta interna. */
+        .art-card {
+            position: relative;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .art-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Simulação da pintura (Apenas CSS decorativo) */
+        .art-image-placeholder {
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .img1 { background: linear-gradient(135s, #8e44ad, #3498db); }
+        .img2 { background: linear-gradient(135deg, #e67e22, #f1c40f); }
+        .img3 { background: linear-gradient(135deg, #2ecc71, #1abc9c); }
+
+        .art-details {
+            padding: 20px;
+        }
+
+        .art-details .artist {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .art-details .technical-info {
+            font-size: 0.85rem;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #1a1a1a;
+            font-size: 1.1rem;
+        }
+
+        /* --- 5. POSICIONAMENTO ABSOLUTE --- 
+           Objetivo: Flutuar a etiqueta de status exatamente no canto do card, ignorando o fluxo de texto. */
+        .art-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #e74c3c;
+            color: white;
+            padding: 5px 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .art-badge.available {
+            background-color: #2ecc71;
+        }
+
+        /* --- SEÇÃO DE EXPLICAÇÃO DOS POSICIONAMENTOS --- */
+        .explanation-section {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            margin-top: 50px;
+        }
+
+        .explanation-section h2 {
+            color: #d4af37;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .pos-box {
+            margin-bottom: 25px;
+        }
+
+        .pos-box h3 {
+            color: #fff;
+            font-size: 1.1rem;
+        }
+
+        .pos-box code {
+            background-color: #333;
+            color: #d4af37;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Mundo do Café</h1>
-        <nav>
-            <a href="index.html" class="nav-link">Início</a> | 
-            <a href="metodos.html" class="nav-link">Métodos de Preparo</a>
-        </nav>
-    </header>
+   <header class="fixed-header">
+    <div class="logo">CORES DO AMANHA</div>
+    <nav>
+        <a href="#objetivo">Objetivo</a>
+        <a href="#galeria">Obras</a>
+        <a href="#explicaçao">Entenda o CSS</a>
+    </nav>
+   </header>
 
-    <main>
-        <section id="intro">
-            <h2>A Arte do Grão</h2>
-            <p>O café é mais do que uma bebida; é uma experiência sensorial que conecta culturas.</p>
-            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500" alt="Xícara de café fumegante">
+   <div class="sticky-announcement">
+        Atençao: Ultimo final de semana da exposiçao virtual. frete gratis para todo o Brasil!
+   </div>
+
+   <main class="container">
+    <section id="objetivo" class="site-objective">
+            <h2>Objetivo da Página</h2>
+            <p>Este site foi desenvolvido com o propósito de apresentar a coleção exclusiva de quadros disponíveis para venda na exposição virtual <strong>"Cores do Amanhã"</strong>. Nosso objetivo é conectar entusiastas da arte a peças únicas, fornecendo total transparência sobre as especificações físicas de cada obra — incluindo o tipo de tela utilizado, a procedência das tintas e a biografia do artista —, permitindo uma experiência de compra rica e informada.</p>
         </section>
 
-        <section>
-            <h3>Principais Variedades</h3>
-            <table>
-                <tr>
-                    <th>Tipo</th>
-                    <th>Sabor</th>
-                    <th>Acidez</th>
-                </tr>
-                <tr>
-                    <td>Arábica</td>
-                    <td>Doce e Complexo</td>
-                    <td>Alta</td>
-                </tr>
-                <tr>
-                    <td>Robusta</td>
-                    <td>Forte e Amargo</td>
-                    <td>Baixa</td>
-                </tr>
-            </table>
+        <section id="galeria">
+            <h2>Quadros Disponíveis</h2>
+            
+            <div class="gallery-grid">
+                
+                <div class="art-card">
+                    <div class="art-badge">Destaque</div>
+                    <div class="art-image-placeholder img1">Crepúsculo Urbano</div>
+                    <div class="art-details">
+                        <h3>Crepúsculo Urbano</h3>
+                        <p class="artist">Por Mariana Silva</p>
+                        <div class="technical-info">
+                            <p><strong>Tela:</strong> Linho Premium (60x80cm)</p>
+                            <p><strong>Tinta:</strong> Óleo importado com pigmentação natural</p>
+                        </div>
+                        <p class="price">R$ 2.500,00</p>
+                    </div>
+                </div>
+
+                <div class="art-card">
+                    <div class="art-badge available">Disponível</div>
+                    <div class="art-image-placeholder img2">Sinfonia Abstrata</div>
+                    <div class="art-details">
+                        <h3>Sinfonia Abstrata</h3>
+                        <p class="artist">Por Carlos Andrade</p>
+                        <div class="technical-info">
+                            <p><strong>Tela:</strong> Algodão Orgânico Texturizado (100x100cm)</p>
+                            <p><strong>Tinta:</strong> Acrílica profissional com acabamento fosco</p>
+                        </div>
+                        <p class="price">R$ 3.800,00</p>
+                    </div>
+                </div>
+
+                <div class="art-card">
+                    <div class="art-badge">Última Peça</div>
+                    <div class="art-image-placeholder img3">Raízes do Futuro</div>
+                    <div class="art-details">
+                        <h3>Raízes do Futuro</h3>
+                        <p class="artist">Por Beatriz Reis</p>
+                        <div class="technical-info">
+                            <p><strong>Tela:</strong> Painel de Madeira Sustentável (50x70cm)</p>
+                            <p><strong>Tinta:</strong> Mista (Aquarela e Nanquim sobre base selada)</p>
+                        </div>
+                        <p class="price">R$ 1.950,00</p>
+                    </div>
+                </div>
+
+            </div>
         </section>
+
+        <section id="explicacao" class="explanation-section">
+            <h2>Explicação dos Posicionamentos CSS Utilizados</h2>
+            <p style="margin-bottom: 20px; color: #bbb;">Para estruturar esta página, aplicamos os conceitos fundamentais de posicionamento web. Veja abaixo como e por que cada um foi utilizado:</p>
+
+            <div class="pos-box">
+                <h3>1. <code>position: fixed;</code> (Menu Superior)</h3>
+                <p><strong>Como foi usado:</strong> Aplicado na tag <code>&lt;header&gt;</code> para travá-la no topo da tela (<code>top: 0; left: 0;</code>).</p>
+                <p><strong>Objetivo prático:</strong> Garante que o menu de navegação permaneça sempre visível e acessível para o usuário, independentemente de quanta rolagem ele faça para baixo na página.</p>
+            </div>
+
+            <div class="pos-box">
+                <h3>2. <code>position: sticky;</code> (Faixa Amarela de Aviso)</h3>
+                <p><strong>Como foi usado:</strong> Aplicado na div de anúncio de frete grátis com um deslocamento de <code>top: 70px;</code>.</p>
+                <p><strong>Objetivo prático:</strong> Ela age de forma normal (estática) inicialmente, mas assim que o usuário rola a página e ela atinge a base do menu fixo (70px), ela passa a se comportar como "fixa" temporariamente, acompanhando a rolagem do usuário para reter sua atenção.</p>
+            </div>
+
+            <div class="pos-box">
+                <h3>3. <code>position: static;</code> (Bloco de Objetivo do Site)</h3>
+                <p><strong>Como foi usado:</strong> É o comportamento padrão de layout. Foi explicitado na seção <code>.site-objective</code>.</p>
+                <p><strong>Objetivo prático:</strong> Seguir o fluxo natural de leitura e renderização do navegador. O elemento é construído empilhado de forma padrão, respeitando as margens normais da página sem nenhuma flutuação especial.</p>
+            </div>
+
+            <div class="pos-box">
+                <h3>4. <code>position: relative;</code> (Cartão/Contêiner da Obra)</h3>
+                <p><strong>Como foi usado:</strong> Aplicado na classe <code>.art-card</code> que envelopa cada quadro.</p>
+                <p><strong>Objetivo prático:</strong> Modificar o elemento para que ele funcione como um "ponto de referência espacial". Sem isso, qualquer elemento filho absoluto que estivesse dentro dele usaria a tela inteira (o corpo da página) como referência de posicionamento.</p>
+            </div>
+
+            <div class="pos-box">
+                <h3>5. <code>position: absolute;</code> (Etiquetas "Destaque" / "Disponível")</h3>
+                <p><strong>Como foi usado:</strong> Aplicado na classe <code>.art-badge</code>, configurando <code>top: 15px; right: 15px;</code>.</p>
+                <p><strong>Objetivo prático:</strong> Retirar a etiqueta do fluxo normal do texto e fazê-la flutuar de forma precisa no canto superior direito de cada imagem. Como o pai dela é <code>relative</code>, ela fica perfeitamente presa às bordas internas do respectivo cartão.</p>
+            </div>
+        </section>
+
     </main>
+
+    <footer>
+        &copy; 2026 Galeria Cores do Amanhã - Exposição Acadêmica de Posicionamento Web.
+    </footer>
+
 </body>
 </html>
+   </main>
+  
