@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Inscrição: Missão Marte</title>
+    <style>
+        :root {
+            --space-black: #0b0d17;
+            --mars-red: #d24d26;
+            --star-white: #f4f4f6;
+            --gray-cool: #242834;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--space-black);
+            color: var(--star-white);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            background-color: var(--gray-cool);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(210, 77, 38, 0.2);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: var(--mars-red);
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        p.subtitle {
+            text-align: center;
+            color: #a0a5b5;
+            margin-bottom: 30px;
+        }
+
+        fieldset {
+            border: 1px solid var(--mars-red);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        legend {
+            color: var(--mars-red);
+            padding: 0 10px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group-inline {
+            margin-bottom: 15px;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        input[type="number"],
+        input[type="file"],
+        select,
+        textarea {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #4f566b;
+            background-color: var(--space-black);
+            color: var(--star-white);
+            font-size: 16px;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--mars-red);
+            box-shadow: 0 0 5px rgba(210, 77, 38, 0.5);
+        }
+
+        .radio-group, .checkbox-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .btn-submit {
+            background-color: var(--mars-red);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: #b13e1c;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🚀 Missão Ares-X: Colonização de Marte</h1>
+    <p class="subtitle">Preencha o formulário para submeter sua candidatura à próxima janela de lançamento.</p>
+
+    <form action="#" method="POST" enctype="multipart/form-data">
+        
+        <fieldset>
+            <legend>Informações do Candidato</legend>
+            
+            <div class="form-group">
+                <label for="nome">Nome Completo:</label>
+                <input type="text" id="nome" name="nome" required placeholder="Ex: Neil Armstrong">
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mail de Contato Interplanetário:</label>
+                <input type="email" id="email" name="email" required placeholder="seu.nome@galaxia.com">
+            </div>
+
+            <div class="form-group">
+                <label for="nascimento">Data de Nascimento:</label>
+                <input type="date" id="nascimento" name="nascimento" required>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Perfil Científico e Técnico</legend>
+
+            <div class="form-group">
+                <label for="funcao">Função Pretendida na Colônia:</label>
+                <select id="funcao" name="funcao" required>
+                    <option value="" disabled selected>Selecione sua área...</option>
+                    <option value="engenharia">Engenharia de Sistemas de Suporte à Vida</option>
+                    <option value="botanica">Botânica / Cultivo em Baixa Gravidade</option>
+                    <option value="medicina">Medicina Espacial e Psicologia</option>
+                    <option value="geologia">Geologia e Mineração de Solo Marciano</option>
+                    <option value="piloto">Piloto de Aeronaves de Carga</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="experiencia">Anos de Experiência na Área Terrestre:</label>
+                <input type="number" id="experiencia" name="experiencia" min="0" max="60" required placeholder="0">
+            </div>
+
+            <div class="form-group">
+                <label for="tolerancia">Nível de Tolerância Psicológica ao Isolamento (1 a 10):</label>
+                <input type="range" id="tolerancia" name="tolerancia" min="1" max="10" value="5" style="accent-color: var(--mars-red);">
+            </div>
+
+            <div class="form-group-inline">
+                <label>Disponibilidade para Viagem de Ida (Sem Retorno)?</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="retorno" value="sim" checked> Sim, aceito o desafio.</label>
+                    <label><input type="radio" name="retorno" value="nao"> Não, quero voltar à Terra.</label>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Documentação e Motivação</legend>
+
+            <div class="form-group">
+                <label for="curriculo">Upload de Histórico Médico/Científico (PDF):</label>
+                <input type="file" id="curriculo" name="curriculo" accept=".pdf">
+            </div>
+
+            <div class="form-group">
+                <label for="motivacao">Por que você deve ser escolhido para colonizar Marte?</label>
+                <textarea id="motivacao" name="motivacao" rows="4" placeholder="Escreva aqui suas motivações..."></textarea>
+            </div>
+
+            <div class="form-group-inline">
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="termos" required> Declaro que estou ciente dos riscos de microgravidade e tempestades de areia.</label>
+                </div>
+            </div>
+        </fieldset>
+
+        <button type="submit" class="btn-submit">Enviar Candidatura para a NASA/SpaceX</button>
+
+    </form>
+</div>
+
+</body>
+</html>
