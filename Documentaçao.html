@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UFT-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>documentacao - Tags Audio e</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #0b0d17;
+            color: #c4c7ce;
+        }
+        header {
+            background-color: #161a24;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #2e3548;
+        }
+        h1, h2, h3 {
+            color: #ffffff;
+        }
+        nav a {
+            color: #4fc3f7;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #11141d;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        code {
+            background-color: #1e2530;
+            color: #ff79c6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        pre {
+            background-color: #1e2530;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border-left: 4px solid #4fc3f7;
+        }
+        pre code {
+            color: #f8f8f2;
+            padding: 0;
+            background: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #161a24;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #2e3548;
+        }
+        th {
+            background-color: #232938;
+            color: #4fc3f7;
+        }
+        tr:hover {
+            background-color: #1c212e;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            color: #62697a;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Documentação Web</h1>
+        <nav>
+            <a href="index.html">Início (Conteúdo)</a> | 
+            <a href="documentacao.html">Como funcionam as Tags Multimídia</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Como funcionam as tags &lt;audio&gt; e &lt;video&gt;?</h2>
+        <p>Introduzidas no HTML5, as tags <code>&lt;audio&gt;</code> e <code>&lt;video&gt;</code> vieram para substituir a necessidade de plugins externos (como o antigo Adobe Flash). Elas permitem a renderização nativa de arquivos de mídia diretamente no navegador, melhorando a performance e a acessibilidade.</p>
+        
+        <p>Dentro dessas tags, costumamos usar a tag filha <code>&lt;source&gt;</code> para indicar o caminho do arquivo e o tipo de formato (MIME type). Isso permite oferecer formatos alternativos caso o navegador do usuário não suporte o principal.</p>
+
+        <h3>Estrutura Básica de Exemplo:</h3>
+<pre><code>&lt;video controls width="320" height="240"&gt;
+  &lt;source src="filme.mp4" type="video/mp4"&gt;
+  &lt;source src="filme.ogg" type="video/ogg"&gt;
+  Seu navegador não suporta este vídeo.
+&lt;/video&gt;</code></pre>
+
+        <hr style="border: 0; border-top: 1px solid #2e3548; margin: 40px 0;">
+
+        <h2>Tabela de Atributos e Suas Funções</h2>
+        <p>Abaixo estão listados os principais atributos utilizados para controlar o comportamento e a aparência das mídias digitais no HTML:</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Atributo</th>
+                    <th>Aplica-se a</th>
+                    <th>Descrição / Para que serve</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>src</strong></td>
+                    <td>Ambos</td>
+                    <td>Especifica a URL (caminho) do arquivo de áudio ou vídeo que será reproduzido.</td>
+                </tr>
+                <tr>
+                    <td><strong>controls</strong></td>
+                    <td>Ambos</td>
+                    <td>Exibe os controles padrão do navegador (botão Play/Pause, barra de volume, tempo decorrido, tela cheia). Sem ele, a mídia fica invisível ou inacessível visualmente (a menos que controlada por Javascript).</td>
+                </tr>
+                <tr>
+                    <td><strong>autoplay</strong></td>
+                    <td>Ambos</td>
+                    <td>Faz com que o arquivo comece a rodar automaticamente assim que a página carregar. *Nota: A maioria dos navegadores bloqueia som automático; se usado em vídeo, costuma exigir o atributo <code>muted</code> junto.</td>
+                </tr>
+                <tr>
+                    <td><strong>loop</strong></td>
+                    <td>Ambos</td>
+                    <td>Faz com que a mídia recomece do início automaticamente assim que terminar, em um ciclo infinito.</td>
+                </tr>
+                <tr>
+                    <td><strong>muted</strong></td>
+                    <td>Ambos</td>
+                    <td>Define que o áudio começará silenciado por padrão.</td>
+                </tr>
+                <tr>
+                    <td><strong>preload</strong></td>
+                    <td>Ambos</td>
+                    <td>Informa ao navegador o que carregar previamente na página. Valores: <code>none</code> (não carrega nada), <code>metadata</code> (carrega só duração/tamanho) ou <code>auto</code> (carrega o arquivo inteiro antes do play).</td>
+                </tr>
+                <tr>
+                    <td><strong>poster</strong></td>
+                    <td>Vídeo</td>
+                    <td>Especifica o caminho de uma imagem a ser exibida como "capa" do vídeo enquanto ele não é reproduzido ou baixado.</td>
+                </tr>
+                <tr>
+                    <td><strong>width / height</strong></td>
+                    <td>Vídeo</td>
+                    <td>Define a largura e a altura da área de exibição do vídeo em pixels.</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+    <footer>
+        <p>© 2026 Guia Web Dev. Desenvolvido para portfólio acadêmico.</p>
+    </footer>
+</body>
+</html>
